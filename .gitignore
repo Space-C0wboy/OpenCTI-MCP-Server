@@ -1,0 +1,16 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Local Claude Code / editor state
+.claude/
+
+# Internal development docs (brainstorm specs + implementation plans) — kept local, not published
+docs/superpowers/
