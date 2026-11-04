@@ -16,7 +16,7 @@ jobs:
       id-token: write # REQUIRED for PyPI Trusted Publishing (OIDC)
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v7
       - name: Build sdist and wheel
         run: uv build
       - name: Publish to PyPI (Trusted Publishing)
