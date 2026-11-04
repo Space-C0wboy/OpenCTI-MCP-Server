@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v3
-      - run: uv venv --python ${{ matrix.python-version }}
-      - run: uv pip install -e ".[dev]"
+      # install from uv.lock so a new ruff/pytest release can't turn CI red on its own
+      - run: uv sync --extra dev --python ${{ matrix.python-version }}
       - run: uv run ruff check .
       - run: uv run pytest -q
