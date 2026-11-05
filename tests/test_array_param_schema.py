@@ -31,10 +31,21 @@ def _fake_full_client():
 
     fake = type("C", (), {})()
     for attr in [
-        "indicator", "stix_cyber_observable", "report", "malware",
-        "threat_actor_group", "intrusion_set", "campaign", "attack_pattern",
-        "tool", "vulnerability", "incident", "case_incident",
-        "stix_core_relationship", "label", "marking_definition",
+        "indicator",
+        "stix_cyber_observable",
+        "report",
+        "malware",
+        "threat_actor_group",
+        "intrusion_set",
+        "campaign",
+        "attack_pattern",
+        "tool",
+        "vulnerability",
+        "incident",
+        "case_incident",
+        "stix_core_relationship",
+        "label",
+        "marking_definition",
         "stix_core_object",
     ]:
         setattr(fake, attr, F())
@@ -77,7 +88,9 @@ REQUIRED_PARAMS = [
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("tool_name,expected_required", REQUIRED_PARAMS)
-async def test_required_params_exclude_optional_scalars_and_lists(monkeypatch, tool_name, expected_required):
+async def test_required_params_exclude_optional_scalars_and_lists(
+    monkeypatch, tool_name, expected_required
+):
     monkeypatch.setattr(client, "get_client", lambda: _fake_full_client())
     mcp = FastMCP(name="t")
     tools_pkg.register_all(mcp, read_only=False)

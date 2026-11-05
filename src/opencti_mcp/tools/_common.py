@@ -38,7 +38,11 @@ def _slim_entity(entity):
             }
         elif key == "externalReferences" and isinstance(value, list):
             slim[key] = [
-                {"source_name": r.get("source_name"), "url": r.get("url"), "external_id": r.get("external_id")}
+                {
+                    "source_name": r.get("source_name"),
+                    "url": r.get("url"),
+                    "external_id": r.get("external_id"),
+                }
                 for r in value
                 if isinstance(r, dict)
             ]
@@ -60,7 +64,7 @@ def slim_result(result):
                 **slimmed,
                 "entities": entities,
                 "_note": f"Result truncated to {keep} entities ({dropped} more omitted) to fit size limits; "
-                         f"narrow your query or use pagination/first for the rest.",
+                f"narrow your query or use pagination/first for the rest.",
             }
         return slimmed
     if isinstance(result, list):
@@ -81,7 +85,7 @@ def guard_size(entity, limit=_SIZE_LIMIT):
         slim = {
             **slim,
             "_note": "Entity too large to return in full; showing a slimmed view. "
-                     "Use stix_export_entity or graphql_query for complete detail.",
+            "Use stix_export_entity or graphql_query for complete detail.",
         }
     return slim
 
@@ -103,7 +107,9 @@ def register_reads(mcp: FastMCP, *, name: str, label: str, helper: HelperGetter)
         ] = None,
         descending: Annotated[
             bool,
-            Field(description="Sort descending (newest/highest first). Ignored unless order_by is set."),
+            Field(
+                description="Sort descending (newest/highest first). Ignored unless order_by is set."
+            ),
         ] = True,
     ) -> Any:
         order_mode = ("desc" if descending else "asc") if order_by else None

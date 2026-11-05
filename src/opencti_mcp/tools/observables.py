@@ -24,7 +24,10 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
     )
     async def _by_value(
         value: Annotated[
-            str, Field(description="The observable value to match exactly, e.g. '1.2.3.4' or a SHA-256 hash")
+            str,
+            Field(
+                description="The observable value to match exactly, e.g. '1.2.3.4' or a SHA-256 hash"
+            ),
         ],
         first: Annotated[int, Field(description="Max results (1-500)", ge=1, le=500)] = 25,
     ) -> Any:
@@ -62,9 +65,7 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
         marking_ids: Annotated[
             list[str], Field(description="Marking-definition ids to attach (e.g. a TLP marking id)")
         ] = [],
-        label_ids: Annotated[
-            list[str], Field(description="Label ids to attach")
-        ] = [],
+        label_ids: Annotated[list[str], Field(description="Label ids to attach")] = [],
         additional_hashes: Annotated[
             list[str],
             Field(description="Extra file hashes as 'ALGO:VALUE', e.g. 'SHA-1:abc', 'MD5:def'"),
@@ -90,9 +91,7 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
             for entry in additional_hashes:
                 a, sep, v = entry.partition(":")
                 if not sep or not a.strip() or not v.strip():
-                    raise ValueError(
-                        f"additional_hashes entry must be 'ALGO:VALUE', got {entry!r}"
-                    )
+                    raise ValueError(f"additional_hashes entry must be 'ALGO:VALUE', got {entry!r}")
                 hashes[a.strip()] = v.strip()
             return client.stix_cyber_observable.create(
                 observableData={"type": "File", "hashes": hashes},

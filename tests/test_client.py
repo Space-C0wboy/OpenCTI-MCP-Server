@@ -18,7 +18,8 @@ def test_get_client_is_cached(monkeypatch):
 
     monkeypatch.setattr(client, "OpenCTIApiClient", FakeApi)
     monkeypatch.setattr(
-        client, "get_config",
+        client,
+        "get_config",
         lambda: client_config_stub(),
     )
     c1 = client.get_client()
@@ -29,7 +30,14 @@ def test_get_client_is_cached(monkeypatch):
 
 def client_config_stub():
     from opencti_mcp.config import Config
+
     return Config(
-        url="https://x/", token="t", read_only=True, timeout=30,
-        ssl_verify=True, log_level="INFO", http_host="127.0.0.1", http_port=8765,
+        url="https://x/",
+        token="t",
+        read_only=True,
+        timeout=30,
+        ssl_verify=True,
+        log_level="INFO",
+        http_host="127.0.0.1",
+        http_port=8765,
     )

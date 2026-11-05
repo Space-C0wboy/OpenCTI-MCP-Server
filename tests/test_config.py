@@ -13,10 +13,7 @@ def _reset():
 
 def test_parses_json_style_env_file(tmp_path, monkeypatch):
     env = tmp_path / ".env"
-    env.write_text(
-        '"OPENCTI_URL": "https://cti.example.com/",\n'
-        '"OPENCTI_TOKEN": "abc123"\n'
-    )
+    env.write_text('"OPENCTI_URL": "https://cti.example.com/",\n"OPENCTI_TOKEN": "abc123"\n')
     monkeypatch.delenv("OPENCTI_URL", raising=False)
     monkeypatch.delenv("OPENCTI_TOKEN", raising=False)
     cfg = config.get_config(env_path=env)

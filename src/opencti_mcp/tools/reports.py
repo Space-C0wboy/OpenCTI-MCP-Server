@@ -34,9 +34,7 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
         marking_ids: Annotated[
             list[str], Field(description="Marking-definition ids to attach (e.g. a TLP marking id)")
         ] = [],
-        label_ids: Annotated[
-            list[str], Field(description="Label ids to attach")
-        ] = [],
+        label_ids: Annotated[list[str], Field(description="Label ids to attach")] = [],
     ) -> Any:
         return get_client().report.create(
             name=name,

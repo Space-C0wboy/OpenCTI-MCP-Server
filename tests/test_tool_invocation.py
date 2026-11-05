@@ -250,7 +250,10 @@ async def test_indicators_update_routes_to_stix_domain_object(monkeypatch):
     fn = await _fn(mcp, "indicators_update")
     await fn(id="abc", key="confidence", value="80")
 
-    assert sdo.calls["update_field"] == {"id": "abc", "input": [{"key": "confidence", "value": "80"}]}
+    assert sdo.calls["update_field"] == {
+        "id": "abc",
+        "input": [{"key": "confidence", "value": "80"}],
+    }
     assert not hasattr(helper, "update_field")
 
 
@@ -346,7 +349,10 @@ async def test_relationships_update_and_delete_route_to_stix_core_relationship(m
 
     update_fn = await _fn(mcp, "relationships_update")
     await update_fn(id="rel-1", key="confidence", value="50")
-    assert helper.calls["update_field"] == {"id": "rel-1", "input": [{"key": "confidence", "value": "50"}]}
+    assert helper.calls["update_field"] == {
+        "id": "rel-1",
+        "input": [{"key": "confidence", "value": "50"}],
+    }
 
     delete_fn = await _fn(mcp, "relationships_delete")
     result = await delete_fn(id="rel-1")

@@ -104,7 +104,10 @@ async def test_register_update_defaults_to_stix_domain_object(monkeypatch):
 
     await fn(id="abc", key="description", value="new")
 
-    assert generic.calls["update_field"] == {"id": "abc", "input": [{"key": "description", "value": "new"}]}
+    assert generic.calls["update_field"] == {
+        "id": "abc",
+        "input": [{"key": "description", "value": "new"}],
+    }
     assert not hasattr(per_entity, "update_field")
 
 

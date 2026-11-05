@@ -7,15 +7,32 @@ from opencti_mcp import tools as tools_pkg
 
 def _fake_full_client():
     class F:
-        def list(self, **kw): return []
-        def read(self, **kw): return {}
-        def create(self, **kw): return {}
+        def list(self, **kw):
+            return []
+
+        def read(self, **kw):
+            return {}
+
+        def create(self, **kw):
+            return {}
+
     fake = type("C", (), {})()
     for attr in [
-        "indicator", "stix_cyber_observable", "report", "malware",
-        "threat_actor_group", "intrusion_set", "campaign", "attack_pattern",
-        "tool", "vulnerability", "incident", "case_incident",
-        "stix_core_relationship", "label", "marking_definition",
+        "indicator",
+        "stix_cyber_observable",
+        "report",
+        "malware",
+        "threat_actor_group",
+        "intrusion_set",
+        "campaign",
+        "attack_pattern",
+        "tool",
+        "vulnerability",
+        "incident",
+        "case_incident",
+        "stix_core_relationship",
+        "label",
+        "marking_definition",
     ]:
         setattr(fake, attr, F())
     return fake

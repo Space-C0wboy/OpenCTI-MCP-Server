@@ -6,9 +6,14 @@ from opencti_mcp.tools import observables
 
 
 class FakeObs:
-    def list(self, **kw): return [{"id": "obs-1"}]
-    def read(self, **kw): return {"id": kw["id"]}
-    def create(self, **kw): return {"id": "obs-new", **kw}
+    def list(self, **kw):
+        return [{"id": "obs-1"}]
+
+    def read(self, **kw):
+        return {"id": kw["id"]}
+
+    def create(self, **kw):
+        return {"id": "obs-new", **kw}
 
 
 @pytest.fixture

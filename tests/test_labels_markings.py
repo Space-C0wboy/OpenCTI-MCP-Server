@@ -9,9 +9,14 @@ class F:
     def __init__(self):
         self.calls = {}
 
-    def list(self, **kw): return [{"id": "1"}]
-    def read(self, **kw): return {"id": kw["id"]}
-    def create(self, **kw): return {"id": "new", **kw}
+    def list(self, **kw):
+        return [{"id": "1"}]
+
+    def read(self, **kw):
+        return {"id": kw["id"]}
+
+    def create(self, **kw):
+        return {"id": "new", **kw}
 
     def update_field(self, **kw):
         self.calls["update_field"] = kw

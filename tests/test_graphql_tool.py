@@ -19,7 +19,7 @@ async def test_read_only_rejects_mutation(monkeypatch):
     monkeypatch.setattr(client, "run_raw_query", lambda q, v=None: {"data": {}})
     tool = gql_tool._make_query_callable(read_only=True)
     with pytest.raises(ValueError):
-        await tool("mutation { deleteThing(id: \"1\") }", None)
+        await tool('mutation { deleteThing(id: "1") }', None)
 
 
 @pytest.mark.asyncio

@@ -24,7 +24,9 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
     async def _create(
         name: Annotated[str, Field(description="Attack pattern name")],
         description: Annotated[str | None, Field(description="Description")] = None,
-        x_mitre_id: Annotated[str | None, Field(description="MITRE ATT&CK id, e.g. 'T1059'")] = None,
+        x_mitre_id: Annotated[
+            str | None, Field(description="MITRE ATT&CK id, e.g. 'T1059'")
+        ] = None,
     ) -> Any:
         return get_client().attack_pattern.create(
             name=name, description=description, x_mitre_id=x_mitre_id
