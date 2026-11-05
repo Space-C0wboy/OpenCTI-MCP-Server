@@ -1199,7 +1199,7 @@ wheels = [
 
 [[package]]
 name = "opencti-mcp"
-version = "0.1.2b1"
+version = "0.1.2"
 source = { editable = "." }
 dependencies = [
     { name = "fastmcp" },
