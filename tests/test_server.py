@@ -20,14 +20,29 @@ async def test_build_server_registers_tools(monkeypatch):
     monkeypatch.setenv("OPENCTI_READ_ONLY", "true")
 
     class F:
-        def list(self, **kw): return []
-        def read(self, **kw): return {}
+        def list(self, **kw):
+            return []
+
+        def read(self, **kw):
+            return {}
+
     fake = type("C", (), {})()
     for attr in [
-        "indicator", "stix_cyber_observable", "report", "malware",
-        "threat_actor_group", "intrusion_set", "campaign", "attack_pattern",
-        "tool", "vulnerability", "incident", "case_incident",
-        "stix_core_relationship", "label", "marking_definition",
+        "indicator",
+        "stix_cyber_observable",
+        "report",
+        "malware",
+        "threat_actor_group",
+        "intrusion_set",
+        "campaign",
+        "attack_pattern",
+        "tool",
+        "vulnerability",
+        "incident",
+        "case_incident",
+        "stix_core_relationship",
+        "label",
+        "marking_definition",
     ]:
         setattr(fake, attr, F())
     monkeypatch.setattr(client, "get_client", lambda: fake)
@@ -41,6 +56,7 @@ async def test_build_server_registers_tools(monkeypatch):
 def test_main_exits_2_on_missing_config(monkeypatch):
     def _raise():
         raise ConfigError("missing")
+
     monkeypatch.setattr(server, "get_config", _raise)
     with pytest.raises(SystemExit) as exc:
         server.main(["--transport", "stdio"])

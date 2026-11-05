@@ -36,7 +36,7 @@ def main(argv: list[str] | None = None) -> None:
         mcp = build_server()
     except ConfigError as exc:
         print(f"Configuration error: {exc}", file=sys.stderr)
-        raise SystemExit(2)
+        raise SystemExit(2) from None
 
     cfg = get_config()
     if args.transport == "http":

@@ -41,7 +41,9 @@ class FakeStix2Helper:
 class FakeStixCoreObjectHelper:
     def __init__(self, entities=None):
         self.calls = {}
-        self._entities = entities if entities is not None else [{"id": "c1", "entity_type": "Campaign"}]
+        self._entities = (
+            entities if entities is not None else [{"id": "c1", "entity_type": "Campaign"}]
+        )
 
     def list(self, **kw):
         self.calls["list"] = kw

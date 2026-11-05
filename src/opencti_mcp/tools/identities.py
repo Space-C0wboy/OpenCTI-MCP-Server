@@ -26,7 +26,10 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
     if read_only:
         return
 
-    @mcp.tool(name="identities_create", description="Create an identity (organization, individual, system, or sector).")
+    @mcp.tool(
+        name="identities_create",
+        description="Create an identity (organization, individual, system, or sector).",
+    )
     async def _create(
         name: Annotated[str, Field(description="Identity name")],
         identity_class: Annotated[
@@ -37,9 +40,7 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
         marking_ids: Annotated[
             list[str], Field(description="Marking-definition ids to attach (e.g. a TLP marking id)")
         ] = [],
-        label_ids: Annotated[
-            list[str], Field(description="Label ids to attach")
-        ] = [],
+        label_ids: Annotated[list[str], Field(description="Label ids to attach")] = [],
     ) -> Any:
         mapped_type = _IDENTITY_TYPES.get(identity_class.lower(), "Organization")
         return get_client().identity.create(

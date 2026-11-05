@@ -7,9 +7,15 @@ from opencti_mcp.tools import cases, relationships, reports
 
 def _fake(attr):
     class F:
-        def list(self, **kw): return [{"id": "1"}]
-        def read(self, **kw): return {"id": kw["id"]}
-        def create(self, **kw): return {"id": "new", **kw}
+        def list(self, **kw):
+            return [{"id": "1"}]
+
+        def read(self, **kw):
+            return {"id": kw["id"]}
+
+        def create(self, **kw):
+            return {"id": "new", **kw}
+
     fake = type("C", (), {})()
     setattr(fake, attr, F())
     return fake

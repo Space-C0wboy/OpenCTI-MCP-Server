@@ -16,7 +16,9 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
         description="Export a single entity as a STIX 2 bundle/object.",
     )
     async def _stix_export_entity(
-        entity_type: Annotated[str, Field(description="Entity type, e.g. 'Malware', 'Indicator', 'Report'")],
+        entity_type: Annotated[
+            str, Field(description="Entity type, e.g. 'Malware', 'Indicator', 'Report'")
+        ],
         entity_id: Annotated[str, Field(description="Entity id")],
         mode: Annotated[
             str, Field(description="'simple' or 'full' (full includes related files)")
@@ -35,7 +37,9 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
         ),
     )
     async def _stix_export_list(
-        entity_type: Annotated[str, Field(description="Entity type, e.g. 'Malware', 'Indicator', 'Report'")],
+        entity_type: Annotated[
+            str, Field(description="Entity type, e.g. 'Malware', 'Indicator', 'Report'")
+        ],
         first: Annotated[
             int, Field(description="Max entities to include in the bundle (1-500)", ge=1, le=500)
         ] = 25,

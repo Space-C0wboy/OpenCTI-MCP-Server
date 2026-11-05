@@ -130,15 +130,33 @@ async def test_create_individual_maps_type(monkeypatch):
 @pytest.mark.asyncio
 async def test_register_all_read_only_has_identities_list_but_not_create(monkeypatch):
     class F:
-        def list(self, **kw): return []
-        def read(self, **kw): return {}
-        def create(self, **kw): return {}
+        def list(self, **kw):
+            return []
+
+        def read(self, **kw):
+            return {}
+
+        def create(self, **kw):
+            return {}
+
     fake = type("C", (), {})()
     for attr in [
-        "indicator", "stix_cyber_observable", "report", "malware",
-        "threat_actor_group", "intrusion_set", "campaign", "attack_pattern",
-        "tool", "vulnerability", "incident", "case_incident",
-        "stix_core_relationship", "label", "marking_definition", "identity",
+        "indicator",
+        "stix_cyber_observable",
+        "report",
+        "malware",
+        "threat_actor_group",
+        "intrusion_set",
+        "campaign",
+        "attack_pattern",
+        "tool",
+        "vulnerability",
+        "incident",
+        "case_incident",
+        "stix_core_relationship",
+        "label",
+        "marking_definition",
+        "identity",
     ]:
         setattr(fake, attr, F())
     monkeypatch.setattr(client, "get_client", lambda: fake)

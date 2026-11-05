@@ -24,11 +24,14 @@ def register(mcp: FastMCP, *, read_only: bool) -> None:
     )
     async def _for_entity(
         entity_id: Annotated[
-            str, Field(description="Entity id whose relationships to fetch (matches source OR target)")
+            str,
+            Field(description="Entity id whose relationships to fetch (matches source OR target)"),
         ],
         relationship_type: Annotated[
             str | None,
-            Field(description="Optional relationship type filter, e.g. 'uses', 'indicates', 'targets'"),
+            Field(
+                description="Optional relationship type filter, e.g. 'uses', 'indicates', 'targets'"
+            ),
         ] = None,
         first: Annotated[int, Field(description="Max results (1-500)", ge=1, le=500)] = 25,
     ) -> Any:
