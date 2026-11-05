@@ -221,7 +221,7 @@ async def test_indicators_list_returns_slimmed_entities(monkeypatch):
     mcp = FastMCP(name="t")
     indicators.register(mcp, read_only=True)
 
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     fn = tools["indicators_list"].fn
     result = await fn()
 

@@ -35,7 +35,7 @@ def fake_client(monkeypatch):
 async def test_read_only(fake_client):
     mcp = FastMCP(name="t")
     labels_markings.register(mcp, read_only=True)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert {"labels_list", "markings_list", "markings_get", "labels_get"} <= names
     assert "labels_create" not in names
 
@@ -44,7 +44,7 @@ async def test_read_only(fake_client):
 async def test_writable_has_labels_create(fake_client):
     mcp = FastMCP(name="t")
     labels_markings.register(mcp, read_only=False)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "labels_create" in names
 
 
@@ -52,7 +52,7 @@ async def test_writable_has_labels_create(fake_client):
 async def test_labels_update_and_delete_route_to_label_helper(fake_client):
     mcp = FastMCP(name="t")
     labels_markings.register(mcp, read_only=False)
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
 
     await tools["labels_update"].fn(id="lbl-1", key="color", value="#ff0000")
     assert fake_client.label.calls["update_field"] == {

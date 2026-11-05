@@ -33,7 +33,7 @@ async def test_build_server_registers_tools(monkeypatch):
     monkeypatch.setattr(client, "get_client", lambda: fake)
 
     mcp = server.build_server()
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "indicators_list" in names
     assert not any(n.endswith("_create") for n in names)
 

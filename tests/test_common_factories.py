@@ -26,7 +26,7 @@ class FakeHelper:
 
 
 async def _tool_names(mcp):
-    return set((await mcp.get_tools()).keys())
+    return set(({t.name: t for t in await mcp.list_tools()}).keys())
 
 
 @pytest.mark.asyncio
@@ -100,7 +100,7 @@ async def test_register_update_defaults_to_stix_domain_object(monkeypatch):
     monkeypatch.setattr(_common, "get_client", lambda: fake_client)
     mcp = FastMCP(name="t")
     _common.register_update(mcp, name="w", label="w", read_only=False)
-    fn = (await mcp.get_tools())["w_update"].fn
+    fn = ({t.name: t for t in await mcp.list_tools()})["w_update"].fn
 
     await fn(id="abc", key="description", value="new")
 
@@ -116,7 +116,7 @@ async def test_register_delete_defaults_to_stix_domain_object(monkeypatch):
     monkeypatch.setattr(_common, "get_client", lambda: fake_client)
     mcp = FastMCP(name="t")
     _common.register_delete(mcp, name="w", label="w", read_only=False)
-    fn = (await mcp.get_tools())["w_delete"].fn
+    fn = ({t.name: t for t in await mcp.list_tools()})["w_delete"].fn
 
     result = await fn(id="abc")
 
@@ -134,7 +134,7 @@ async def test_register_update_uses_custom_editor(monkeypatch):
     _common.register_update(
         mcp, name="w", label="w", read_only=False, editor=lambda c: c.stix_cyber_observable
     )
-    fn = (await mcp.get_tools())["w_update"].fn
+    fn = ({t.name: t for t in await mcp.list_tools()})["w_update"].fn
 
     await fn(id="abc", key="k", value="v")
 
@@ -150,7 +150,7 @@ async def test_register_delete_uses_custom_deleter(monkeypatch):
     _common.register_delete(
         mcp, name="w", label="w", read_only=False, deleter=lambda c: c.stix_core_relationship
     )
-    fn = (await mcp.get_tools())["w_delete"].fn
+    fn = ({t.name: t for t in await mcp.list_tools()})["w_delete"].fn
 
     await fn(id="abc")
 

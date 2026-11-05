@@ -58,7 +58,7 @@ async def test_optional_list_param_has_plain_array_schema(monkeypatch, tool_name
     mcp = FastMCP(name="t")
     tools_pkg.register_all(mcp, read_only=False)
 
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     schema = tools[tool_name].parameters["properties"][param_name]
 
     assert schema.get("type") == "array"
@@ -82,7 +82,7 @@ async def test_required_params_exclude_optional_scalars_and_lists(monkeypatch, t
     mcp = FastMCP(name="t")
     tools_pkg.register_all(mcp, read_only=False)
 
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     required = set(tools[tool_name].parameters.get("required") or [])
 
     assert required == expected_required
