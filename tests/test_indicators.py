@@ -1,7 +1,8 @@
 import pytest
 from fastmcp import FastMCP
-from opencti_mcp.tools import indicators
+
 from opencti_mcp import client
+from opencti_mcp.tools import indicators
 
 
 class FakeIndicator:

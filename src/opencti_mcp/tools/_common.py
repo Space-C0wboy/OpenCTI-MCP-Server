@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import json
-from typing import Annotated, Any, Callable
+from collections.abc import Callable
+from typing import Annotated, Any
 
 from fastmcp import FastMCP
 from pydantic import Field
@@ -124,7 +125,7 @@ def register_reads(mcp: FastMCP, *, name: str, label: str, helper: HelperGetter)
         return guard_size(helper(get_client()).read(id=id))
 
 
-_DEFAULT_EDITOR = lambda c: c.stix_domain_object  # noqa: E731
+_DEFAULT_EDITOR = lambda c: c.stix_domain_object
 
 
 def register_update(

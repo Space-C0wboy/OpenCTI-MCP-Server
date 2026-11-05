@@ -49,6 +49,10 @@ packages = ["src/opencti_mcp"]
 line-length = 100
 target-version = "py310"
 
+[tool.ruff.lint.per-file-ignores]
+# MCP tool params: the [] defaults are never mutated, and `| None = None` would change each tool's published schema
+"src/opencti_mcp/tools/*.py" = ["B006"]
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]

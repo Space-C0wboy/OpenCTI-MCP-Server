@@ -8,7 +8,7 @@ from pydantic import Field
 from ..client import get_client
 from ._common import register_delete, register_reads, register_update
 
-_HELPER = lambda c: c.intrusion_set  # noqa: E731
+_HELPER = lambda c: c.intrusion_set
 _NAME = "intrusion_sets"
 _LABEL = "intrusion set"
 

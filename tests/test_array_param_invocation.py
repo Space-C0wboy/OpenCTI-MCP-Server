@@ -14,7 +14,8 @@ from __future__ import annotations
 import pytest
 from fastmcp import FastMCP
 
-from opencti_mcp.tools import intrusion_sets, malware, search, threat_actors, tools as tools_mod
+from opencti_mcp.tools import intrusion_sets, malware, search, threat_actors
+from opencti_mcp.tools import tools as tools_mod
 
 
 class FakeMalwareHelper:

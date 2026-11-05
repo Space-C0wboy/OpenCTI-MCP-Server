@@ -8,8 +8,8 @@ from pydantic import Field
 from ..client import get_client
 from ._common import register_delete, register_reads, register_update
 
-_LABEL_HELPER = lambda c: c.label  # noqa: E731
-_MARK_HELPER = lambda c: c.marking_definition  # noqa: E731
+_LABEL_HELPER = lambda c: c.label
+_MARK_HELPER = lambda c: c.marking_definition
 
 
 def register(mcp: FastMCP, *, read_only: bool) -> None:

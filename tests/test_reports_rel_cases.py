@@ -1,7 +1,8 @@
 import pytest
 from fastmcp import FastMCP
-from opencti_mcp.tools import reports, relationships, cases
+
 from opencti_mcp import client
+from opencti_mcp.tools import cases, relationships, reports
 
 
 def _fake(attr):

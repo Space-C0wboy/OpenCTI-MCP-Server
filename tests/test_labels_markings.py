@@ -1,5 +1,6 @@
 import pytest
 from fastmcp import FastMCP
+
 from opencti_mcp import client
 from opencti_mcp.tools import labels_markings
 
@@ -18,7 +19,6 @@ class F:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 @pytest.fixture

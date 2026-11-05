@@ -8,7 +8,7 @@ from pydantic import Field
 from ..client import get_client
 from ._common import register_delete, register_reads
 
-_HELPER = lambda c: c.identity  # noqa: E731
+_HELPER = lambda c: c.identity
 _NAME = "identities"
 _LABEL = "identity"
 

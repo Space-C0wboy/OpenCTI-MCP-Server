@@ -1,7 +1,8 @@
 import pytest
 from fastmcp import FastMCP
-from opencti_mcp.tools import _common
+
 from opencti_mcp import client
+from opencti_mcp.tools import _common
 
 
 class FakeHelper:
@@ -22,7 +23,6 @@ class FakeHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 async def _tool_names(mcp):
@@ -90,7 +90,6 @@ class FakeGenericHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 @pytest.mark.asyncio

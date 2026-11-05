@@ -1,9 +1,18 @@
 import pytest
 from fastmcp import FastMCP
+
 from opencti_mcp import client
 from opencti_mcp.tools import (
-    malware, threat_actors, intrusion_sets, campaigns,
-    attack_patterns, tools as tools_mod, vulnerabilities, incidents,
+    attack_patterns,
+    campaigns,
+    incidents,
+    intrusion_sets,
+    malware,
+    threat_actors,
+    vulnerabilities,
+)
+from opencti_mcp.tools import (
+    tools as tools_mod,
 )
 
 CASES = [
@@ -56,7 +65,6 @@ class _StixDomainObjectHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 @pytest.mark.parametrize("module,attr,name", CASES)
