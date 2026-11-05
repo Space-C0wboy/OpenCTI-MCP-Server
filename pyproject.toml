@@ -25,7 +25,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "fastmcp>=2.0.0,<3.0",
+    "fastmcp>=4.1.5,<5",
     "pycti>=6.0",
     "pydantic>=2.0",
     "python-dotenv>=1.0",

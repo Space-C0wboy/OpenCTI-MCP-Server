@@ -43,7 +43,7 @@ async def test_domain_registers(monkeypatch, module, attr, name):
     monkeypatch.setattr(client, "get_client", lambda: _fake(attr))
     mcp = FastMCP(name="t")
     module.register(mcp, read_only=False)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert {f"{name}_list", f"{name}_get", f"{name}_create"} <= names
 
 
@@ -77,7 +77,7 @@ async def test_domain_update_and_delete_route_to_stix_domain_object(monkeypatch,
     mcp = FastMCP(name="t")
     module.register(mcp, read_only=False)
 
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     await tools[f"{name}_update"].fn(id="e1", key="confidence", value="70")
     assert sdo.calls["update_field"] == {"id": "e1", "input": [{"key": "confidence", "value": "70"}]}
 

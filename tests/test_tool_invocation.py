@@ -6,7 +6,7 @@ the underlying pycti helper. Registration-only tests can pass even if a
 tool's body maps arguments incorrectly (e.g. `object_ids` never renamed to
 `objects`), so this file exists to catch that class of bug.
 
-Invocation mechanism: `await mcp.get_tools()` returns a dict of
+Invocation mechanism: `{t.name: t for t in await mcp.list_tools()}` returns a dict of
 name -> fastmcp.tools.tool.FunctionTool. Each FunctionTool exposes the
 original async function as `.fn`, which can be awaited directly with
 keyword arguments (bypassing MCP's JSON-RPC/schema layer entirely). This
@@ -129,7 +129,7 @@ class FakeObservableHelper:
 
 
 async def _fn(mcp: FastMCP, tool_name: str):
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     return tools[tool_name].fn
 
 

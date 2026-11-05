@@ -23,5 +23,5 @@ def fake_client(monkeypatch):
 async def test_registers_reads_and_create(fake_client):
     mcp = FastMCP(name="t")
     observables.register(mcp, read_only=False)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert {"observables_list", "observables_get", "observables_create"} <= names

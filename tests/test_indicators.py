@@ -29,7 +29,7 @@ def fake_client(monkeypatch):
 
 
 async def _names(mcp):
-    return set((await mcp.get_tools()).keys())
+    return set(({t.name: t for t in await mcp.list_tools()}).keys())
 
 
 @pytest.mark.asyncio

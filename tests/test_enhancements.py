@@ -6,7 +6,7 @@
 
 Follows the invocation-test style established in tests/test_tool_invocation.py:
 build a fresh FastMCP, call `module.register(mcp, read_only=...)`, pull the tool
-body via `(await mcp.get_tools())[name].fn`, and invoke it against a fake helper
+body via `({t.name: t for t in await mcp.list_tools()})[name].fn`, and invoke it against a fake helper
 that records the kwargs it was called with.
 """
 
@@ -47,7 +47,7 @@ class FakeCoreObjectHelper:
 
 
 async def _fn(mcp: FastMCP, tool_name: str):
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     return tools[tool_name].fn
 
 
@@ -59,7 +59,7 @@ async def test_relationships_for_entity_registered_read_only(monkeypatch):
     mcp = FastMCP(name="t")
     relationships.register(mcp, read_only=True)
 
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "relationships_for_entity" in names
 
     fn = await _fn(mcp, "relationships_for_entity")
@@ -81,7 +81,7 @@ async def test_observables_by_value_registered_read_only(monkeypatch):
     mcp = FastMCP(name="t")
     observables.register(mcp, read_only=True)
 
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "observables_by_value" in names
 
     fn = await _fn(mcp, "observables_by_value")
@@ -106,7 +106,7 @@ async def test_search_all_registered_read_only(monkeypatch):
     mcp = FastMCP(name="t")
     search.register(mcp, read_only=True)
 
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "search_all" in names
 
     fn = await _fn(mcp, "search_all")
@@ -161,7 +161,7 @@ async def test_register_all_read_only_includes_new_read_tools(monkeypatch):
     monkeypatch.setattr(client, "get_client", lambda: _fake_full_client_with_new_helpers())
     mcp = FastMCP(name="t")
     tools_pkg.register_all(mcp, read_only=True)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
 
     assert "search_all" in names
     assert "relationships_for_entity" in names

@@ -64,7 +64,7 @@ class FakeCoreObjectHelper:
 
 
 async def _fn(mcp: FastMCP, tool_name: str):
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     return tools[tool_name].fn
 
 

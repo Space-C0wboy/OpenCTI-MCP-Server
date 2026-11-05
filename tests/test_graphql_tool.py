@@ -10,7 +10,7 @@ async def test_graphql_query_registered_and_runs(monkeypatch):
     monkeypatch.setattr(client, "run_raw_query", lambda q, v=None: {"data": {"ok": True}})
     mcp = FastMCP(name="t")
     gql_tool.register(mcp, read_only=False)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "graphql_query" in names
 
 

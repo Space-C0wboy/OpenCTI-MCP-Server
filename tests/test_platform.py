@@ -7,7 +7,7 @@
 
 Follows the invocation-test style established in tests/test_tool_invocation.py and
 tests/test_enhancements.py: build a fresh FastMCP, call `module.register(...)`, pull
-the tool body via `(await mcp.get_tools())[name].fn`, and invoke it against a fake
+the tool body via `({t.name: t for t in await mcp.list_tools()})[name].fn`, and invoke it against a fake
 client that records the kwargs it was called with.
 """
 
@@ -68,7 +68,7 @@ def _fake_client():
 
 
 async def _fn(mcp: FastMCP, tool_name: str):
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     return tools[tool_name].fn
 
 
@@ -80,7 +80,7 @@ async def test_read_only_registers_all_read_tools_but_not_enrichment(monkeypatch
 
     mcp = FastMCP(name="t")
     platform.register(mcp, read_only=True)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
 
     assert {
         "users_list",
@@ -102,7 +102,7 @@ async def test_writable_registers_entity_ask_enrichment(monkeypatch):
 
     mcp = FastMCP(name="t")
     platform.register(mcp, read_only=False)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
 
     assert "entity_ask_enrichment" in names
 
@@ -217,7 +217,7 @@ async def test_register_all_read_only_includes_platform_read_tools(monkeypatch):
     monkeypatch.setattr(client, "get_client", lambda: _fake_full_client_with_platform_helpers())
     mcp = FastMCP(name="t")
     tools_pkg.register_all(mcp, read_only=True)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
 
     assert "connectors_get" in names
     assert "users_list" in names

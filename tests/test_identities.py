@@ -39,7 +39,7 @@ class FakeStixDomainObjectHelper:
 
 
 async def _fn(mcp: FastMCP, tool_name: str):
-    tools = await mcp.get_tools()
+    tools = {t.name: t for t in await mcp.list_tools()}
     return tools[tool_name].fn
 
 
@@ -51,7 +51,7 @@ async def test_read_only_registers_reads_but_not_create_or_delete(monkeypatch):
     mcp = FastMCP(name="t")
     identities.register(mcp, read_only=True)
 
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "identities_list" in names
     assert "identities_get" in names
     assert "identities_create" not in names
@@ -67,7 +67,7 @@ async def test_writable_registers_create_and_delete(monkeypatch):
     mcp = FastMCP(name="t")
     identities.register(mcp, read_only=False)
 
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "identities_create" in names
     assert "identities_delete" in names
 
@@ -144,6 +144,6 @@ async def test_register_all_read_only_has_identities_list_but_not_create(monkeyp
     monkeypatch.setattr(client, "get_client", lambda: fake)
     mcp = FastMCP(name="t")
     register_all(mcp, read_only=True)
-    names = set((await mcp.get_tools()).keys())
+    names = set(({t.name: t for t in await mcp.list_tools()}).keys())
     assert "identities_list" in names
     assert "identities_create" not in names
