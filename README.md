@@ -95,6 +95,19 @@ uv pip install -e ".[dev]"
 
 In OpenCTI, open your profile menu → **API access**, then copy your personal access token.
 
+### Match `pycti` to your OpenCTI version
+
+`pycti` releases track OpenCTI platform releases one to one, and each version's queries assume that platform's GraphQL schema. Against an older platform, a newer `pycti` fails with errors such as `GRAPHQL_VALIDATION_FAILED: Cannot query field "customFieldValues" on type "Indicator"` or `Cannot query field "x_opencti_score"`, and most `*_list` tools stop working. opencti-mcp accepts any `pycti>=6.0`, so pin the one that matches your platform:
+
+1. Find your platform version: **Settings → About** in the web UI, or the GraphQL query `{ about { version } }`.
+2. Launch with that exact `pycti` (if PyPI has no exact match, use the closest version that isn't newer):
+
+```bash
+uvx --isolated --from opencti-mcp --with pycti==<platform version> opencti-mcp
+```
+
+In `claude_desktop_config.json`, that is `"args": ["--isolated", "--from", "opencti-mcp", "--with", "pycti==<platform version>", "opencti-mcp"]`. When the platform is upgraded, update the pin to match.
+
 ### Configuration
 
 Configuration is read from environment variables, or from a `.env` file in the working directory (either a standard `KEY=value` dotenv file or a JSON-style fragment). OS environment variables always take precedence over the file.

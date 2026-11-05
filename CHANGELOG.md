@@ -4,6 +4,26 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-11-05
+
+### Changed
+
+- Moved to **fastmcp 4** (mcp SDK 2.3). Tool input schemas now carry `additionalProperties: false`, so calls
+  with unexpected arguments are rejected.
+- Dependency updates, including security fixes: authlib 1.9.4, joserfc, opentelemetry-api 1.45.1, requests 2.33.0.
+
+### Documentation
+
+- New README section, "Match `pycti` to your OpenCTI version": a `pycti` newer than the platform causes
+  `GRAPHQL_VALIDATION_FAILED` errors (`customFieldValues`, `x_opencti_score`) on most `*_list` tools; launch with
+  `--with pycti==<platform version>`. Verified against a production OpenCTI 7.260701.0 with all 17 `*_list` tools.
+
+### CI
+
+- Workflows run with a read-only token by default; the publish job keeps only `id-token: write`.
+- ruff pinned at 0.17.3 with a `ruff format --check` step; the house lint rules apply.
+- The publish workflow refuses to run unless the release tag matches the `pyproject.toml` version.
+
 ## [0.1.1] - 2026-07-14
 
 ### Changed
