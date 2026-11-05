@@ -1,5 +1,6 @@
 import pytest
-from opencti_mcp import server, config, client
+
+from opencti_mcp import client, config, server
 from opencti_mcp.errors import ConfigError
 
 

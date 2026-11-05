@@ -56,7 +56,6 @@ class FakeStixCoreObjectHelper:
 
     def ask_enrichment(self, **kw):
         self.calls["ask_enrichment"] = kw
-        return None
 
 
 def _fake_client():

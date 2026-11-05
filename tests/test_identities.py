@@ -36,7 +36,6 @@ class FakeStixDomainObjectHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 async def _fn(mcp: FastMCP, tool_name: str):

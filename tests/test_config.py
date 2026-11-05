@@ -1,4 +1,5 @@
 import pytest
+
 from opencti_mcp import config
 from opencti_mcp.errors import ConfigError
 

@@ -1,6 +1,8 @@
 import pytest
 from fastmcp import FastMCP
-from opencti_mcp import client, tools as tools_pkg
+
+from opencti_mcp import client
+from opencti_mcp import tools as tools_pkg
 
 
 def _fake_full_client():

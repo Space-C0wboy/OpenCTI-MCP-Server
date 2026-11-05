@@ -8,7 +8,7 @@ from pydantic import Field
 from ..client import get_client
 from ._common import register_delete, register_reads, register_update, slim_result
 
-_HELPER = lambda c: c.stix_core_relationship  # noqa: E731
+_HELPER = lambda c: c.stix_core_relationship
 _NAME = "relationships"
 _LABEL = "relationship"
 

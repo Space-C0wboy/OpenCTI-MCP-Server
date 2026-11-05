@@ -1,7 +1,8 @@
 import pytest
 from fastmcp import FastMCP
-from opencti_mcp.tools import graphql as gql_tool
+
 from opencti_mcp import client
+from opencti_mcp.tools import graphql as gql_tool
 
 
 @pytest.mark.asyncio

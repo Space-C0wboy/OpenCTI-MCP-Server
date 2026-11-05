@@ -8,7 +8,7 @@ from pydantic import Field
 from ..client import get_client
 from ._common import register_delete, register_reads, register_update
 
-_HELPER = lambda c: c.threat_actor_group  # noqa: E731
+_HELPER = lambda c: c.threat_actor_group
 _NAME = "threat_actors"
 _LABEL = "threat actor"
 

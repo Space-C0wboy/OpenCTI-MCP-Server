@@ -12,7 +12,7 @@ from .errors import ConfigError
 _TRUTHY = {"1", "true", "yes", "on"}
 _DEFAULT_ENV_PATH = Path(".env")
 
-_cache: "Config | None" = None
+_cache: Config | None = None
 
 
 @dataclass(frozen=True)
@@ -34,8 +34,7 @@ def _read_env_file(path: Path) -> dict[str, str]:
     # Try JSON-fragment style: "KEY": "value", ...
     try:
         body = text.strip()
-        if body.endswith(","):
-            body = body[:-1]
+        body = body.removesuffix(",")
         wrapped = "{" + body + "}"
         data = json.loads(wrapped)
         return {str(k): str(v) for k, v in data.items()}

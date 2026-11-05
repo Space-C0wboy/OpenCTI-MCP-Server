@@ -61,7 +61,6 @@ class FakeStixDomainObjectHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
 
 class FakeReportHelper:
@@ -101,7 +100,6 @@ class FakeRelationshipHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
     def create(self, **kw):
         self.calls["create"] = kw
@@ -124,7 +122,6 @@ class FakeObservableHelper:
 
     def delete(self, **kw):
         self.calls["delete"] = kw
-        return None
 
     def create(self, **kw):
         self.calls["create"] = kw
