@@ -7,7 +7,7 @@ name = "opencti-mcp"
 version = "0.1.2"
 description = "MCP server exposing the OpenCTI threat-intelligence platform to AI assistants."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Kierston Grantham" }]
 keywords = ["opencti", "mcp", "model-context-protocol", "threat-intelligence", "cti", "stix", "fastmcp", "pycti", "security"]
@@ -18,7 +18,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Security",
@@ -47,7 +46,7 @@ packages = ["src/opencti_mcp"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.format]
 exclude = ["*.md"]  # ruff 0.17 also formats code blocks in Markdown; docs keep their own layout
